@@ -26,7 +26,9 @@ int main(int argc, char* argv[])
 		
 		if (a == 0) {
 			
-			printf("\nThe coefficient at the first term of the equation cannot be equal to zero, change it and try again.\n");
+			oneX = (float) -(c / b);
+			printf("\nThe root of the equation: %.2f\n", oneX);
+			
 			continueCheck(&active);
 			continue;
 		}
