@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
     angle = abs((h * 30) - (m * 6));
 
     if (angle > 180)
-        angle = 360 - 180;
+        angle -= 180;
 
     printf("\nangle = %i\n\n", angle);
     return 0;
