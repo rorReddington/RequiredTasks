@@ -8,8 +8,6 @@
 #include "vector.h"
 #include "contacts.h"
 
-#define CONFIG_FILE_NAME "data.cfg"
-
 FILE *config;
 
 void strlwr(char *str)
@@ -177,16 +175,24 @@ void print_contacts_by_group(int id)
 			printf(" %3lu %-24s %-12s %-10s\n", i, vector[i].name, vector[i].phone, get_group_name_by_index(vector[i].group));
 }
 
-void write_contacts()
+void save_contacts(char *filename)
 {
-	if (vec_size == 0)
-		return;
+    if (vec_size == 0) {
+        
+        printf(" - You contact list is empty!");
+        int t = getchar();
+        return;
+    }
 
-	config = fopen(CONFIG_FILE_NAME, "w");
+    char buffer[256];
+    sprintf(buffer, "%s.cfg", filename);
+    
+	config = fopen(buffer, "w");
 
 	if (config == NULL) {
-
-		printf("\n> Error saving data\n\n");
+        
+		printf("\n- Error save file \"%s\"\n", buffer);
+        int t = getchar();
 		return;
 	}
 
@@ -211,15 +217,20 @@ void write_contacts()
 	}
 
 	fclose(config);
+    printf("\n- File \"%s\" was saved\n", buffer);
+    int t = getchar();
 }
 
-void read_contacts()
+void load_contacts(char *filename)
 {
-	config = fopen(CONFIG_FILE_NAME, "r");
+    char buffer[256];
+    sprintf(buffer, "%s.cfg", filename);
+	config = fopen(buffer, "r");
 
 	if (config == NULL) {
 
-		printf("\n> Error read data\n\n");
+		printf("\n- Error laod file \"%s\"\n", buffer);
+        int t = getchar();
 		return;
 	}
 
@@ -255,10 +266,14 @@ void read_contacts()
 		c++;
 	}
 
+    clear_vector();
+    
 	for (int k = 0; k<n; k++)
 		add_contact((ptr + k)->name, (ptr + k)->phone, (ptr + k)->group);
 
 	free(pti);
 	free(ptr);
 	fclose(config);
+    printf("\n- File \"%s\" was loaded\n", buffer);
+    int t = getchar();
 }

@@ -16,6 +16,7 @@ extern size_t vec_capacity;
 void append(Contact value);
 void insert(size_t pos, Contact value);
 void erase(size_t pos);
+void clear_vector();
 void reserve(size_t newCap);
 void squeeze();
 

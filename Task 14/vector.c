@@ -58,6 +58,19 @@ void erase(size_t pos)
 	vec_size--;
 }
 
+void clear_vector()
+{
+    if (vec_size == 0)
+        return;
+    
+    free(vector);
+    vector = 0;
+    vec_size = 0;
+    vec_capacity = 0;
+    
+    vec_size--;
+}
+
 void squeeze()
 {
 	if (vector == 0)

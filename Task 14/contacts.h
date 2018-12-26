@@ -48,9 +48,9 @@ void print_contacts_by_phone(char *phone);
 void print_contacts_by_group(int id);
 
 /* Функция, которая записывает контакты в файл */
-void write_contacts();
+void save_contacts(char *filename);
 
 /* Функция, которая читает записанные в файл контакты */
-void read_contacts();
+void load_contacts(char *filename);
 
 #endif // VECTOR_H_CONTACTS

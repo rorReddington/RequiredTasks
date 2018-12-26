@@ -13,6 +13,8 @@ enum MenuMainItems
 	MENU_ITEM_CHANGE,
 	MENU_ITEM_REMOVE,
 	MENU_ITEM_DISPLAY,
+    MENU_ITEM_FILELOAD,
+    MENU_ITEM_FILESAVE,
 	MENU_ITEM_CLOSE
 };
 
@@ -172,6 +174,7 @@ void main_menu(short item)
 	char name[80];
 	char phone[13];
 	char group[10];
+    char filename[120];
 
 	switch (item)
 	{
@@ -183,7 +186,9 @@ void main_menu(short item)
 			"  2) Change contact name/phone/group\n"
 			"  3) Remove contact\n"
 			"  4) Display\n"
-			"  5) Close the program\n\n- ");
+            "  5) Load contacts\n"
+            "  6) Save contacts\n"
+			"  7) Close the program\n\n- ");
 		break;
 	case MENU_ITEM_ADD:
 		printf("\n Please fill in the details.\n\n");
@@ -215,7 +220,6 @@ void main_menu(short item)
 			display_error("\n - Error! Contact does not exist.\n\n - Please press \"ENTER\" for continue...");
 			return;
 		}
-
 		change_menu(name);
 		break;
 	case MENU_ITEM_REMOVE:
@@ -225,6 +229,18 @@ void main_menu(short item)
 
 		remove_contact(name);
 		break;
+    case MENU_ITEM_FILELOAD:
+        printf("\n - Please enter a file name: ");
+        get_string(filename, 120);
+            
+        load_contacts(filename);
+        break;
+    case MENU_ITEM_FILESAVE:
+        printf("\n - Please enter a file name: ");
+        get_string(filename, 120);
+        
+        save_contacts(filename);
+        break;
 	case MENU_ITEM_DISPLAY:
 		display_menu();
 		break;
@@ -239,8 +255,6 @@ int main(int argc, char* argv[])
 	int item = 0;
 	char buf[3];
 
-	read_contacts();
-
 	while (item != MENU_ITEM_CLOSE)
 	{
 		main_menu(MENU_MAIN);
@@ -250,8 +264,6 @@ int main(int argc, char* argv[])
 
 		main_menu(item);
 	}
-
-	write_contacts();
 
 	return 0;
 }
